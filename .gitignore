@@ -1,1 +1,9 @@
-Dockerfile.bak
+target
+.idea
+cert
+.env
+.bin
+.vscode
+*.bak
+node_modules/
+vendor/
