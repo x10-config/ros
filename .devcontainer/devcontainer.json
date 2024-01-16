@@ -1,5 +1,3 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.224.3/containers/rust-postgres
 {
 	"name": "Rust on Steroids (ROS)",
 	"dockerComposeFile": [
@@ -35,7 +33,6 @@
 				"usernamehw.errorlens",
 				"Luxcium.pop-n-lock-theme-vscode",
 				"jinxdash.prettier-rust",
-				"pascalsenn.keyboard-quickfix",
 				"eamodio.gitlens",
 				"dotenv.dotenv-vscode",
 				"panicbit.cargo",
@@ -46,7 +43,13 @@
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
 				"github.vscode-github-actions",
-				"bierner.markdown-mermaid"
+				"bierner.markdown-mermaid",
+				"masterustacean.cargo-bin",
+				"masterustacean.cargo-runner",
+				"jedeop.crates-completer",
+				"GitHub.codespaces",
+				"GitHub.vscode-pull-request-github",
+				"ms-vscode.test-adapter-converter"
 			]
 		}
 	},
