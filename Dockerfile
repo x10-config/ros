@@ -116,4 +116,3 @@ COPY --chown=$USERNAME --from=builder /home/cargo-* $CARGO_HOME/bin
 RUN echo '[target.x86_64-unknown-linux-gnu]\nlinker = "clang"\nrustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]' > $CARGO_HOME/config.toml
 
 RUN cargo binstall -y --continue-on-failure sqlx-cli cargo-bloat cargo-hack cargo-outdated cargo-hack
-# cargo-lambda  cargo-shuttle 
