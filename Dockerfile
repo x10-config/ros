@@ -11,7 +11,23 @@ RUN apt-get update \
 
 # /usr/local/cargo/bin/cargo
 RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-RUN mv /usr/local/cargo/bin/cargo-binstall /home/cargo-binstall
+RUN curl -LsSf https://get.nexte.st/latest/linux | tar zxf - -C ${CARGO_HOME}/bin
+RUN curl -L https://github.com/cargo-generate/cargo-generate/releases/download/v0.19.0/cargo-generate-v0.19.0-aarch64-unknown-linux-musl.tar.gz | tar xz -C ${CARGO_HOME}/bin
+RUN curl -L https://github.com/est31/cargo-udeps/releases/download/v0.1.45/cargo-udeps-v0.1.45-x86_64-unknown-linux-gnu.tar.gz | tar xz -C ${CARGO_HOME}/bin
+RUN curl -L https://github.com/mozilla/sccache/releases/download/v0.7.5/sccache-dist-v0.7.5-x86_64-unknown-linux-musl.tar.gz | tar xz -C ${CARGO_HOME}/bin
+RUN curl -L https://github.com/cargo-lambda/cargo-lambda/releases/download/v1.0.1/cargo-lambda-v1.0.1.x86_64-unknown-linux-musl.tar.gz | tar xz -C ${CARGO_HOME}/bin
+RUN curl -L https://github.com/shuttle-hq/shuttle/releases/download/v0.36.0/cargo-shuttle-v0.36.0-x86_64-unknown-linux-musl.tar.gz | tar xz -C ${CARGO_HOME}/bin
+RUN curl -L https://github.com/rustwasm/wasm-bindgen/releases/download/0.2.90/wasm-bindgen-0.2.90-x86_64-unknown-linux-musl.tar.gz | tar xz -C ${CARGO_HOME}/bin
+
+RUN curl -L https://github.com/leptos-rs/cargo-leptos/releases/download/0.2.5/cargo-leptos-x86_64-unknown-linux-musl.tar.xz | tar Jxf - -C ${CARGO_HOME}/bin
+
+
+RUN curl https://github.com/watchexec/cargo-watch/releases/download/v8.5.2/cargo-watch-v8.5.2-x86_64-unknown-linux-musl.tar.xz -L -o cargo-watch.tar.xz \
+    && tar -xf cargo-watch.tar.xz \
+    && mv cargo-watch-v8.5.2-x86_64-unknown-linux-musl/cargo-watch /home
+
+RUN find /usr/local/cargo/bin/ -maxdepth 1 -type f -not -name 'cargo' -exec mv {} /home/ \;
+
 
 FROM rust:slim-bookworm
 ARG MOLD_VERSION=2.4.0
@@ -95,10 +111,9 @@ USER $USERNAME
 
 
 # Copy the binaries we built in builder container
-COPY --chown=$USERNAME --from=builder /home/cargo-binstall $CARGO_HOME/bin
+COPY --chown=$USERNAME --from=builder /home/cargo-* $CARGO_HOME/bin
 # Insert MOLD setup here
 RUN echo '[target.x86_64-unknown-linux-gnu]\nlinker = "clang"\nrustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]' > $CARGO_HOME/config.toml
 
-RUN cargo binstall -y --continue-on-failure sccache cargo-watch wasm-bindgen-cli sqlx-cli cargo-nextest cargo-bloat cargo-generate cargo-hack cargo-nextest cargo-outdated cargo-udeps dioxus-cli trunk
-RUN cargo install cargo-leptos
+RUN cargo binstall -y --continue-on-failure sqlx-cli cargo-bloat cargo-hack cargo-outdated cargo-hack
 # cargo-lambda  cargo-shuttle 
