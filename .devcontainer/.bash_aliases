@@ -96,6 +96,7 @@ function .b() {
     echo "Sourcing bash config files"
     if [ -f "$HOME/.bash_profile" ]; then
         source $HOME/.profile
+    fi
     if [ -f "$HOME/.bashrc" ]; then
         source $HOME/.bashrc
     fi
