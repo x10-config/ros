@@ -1,0 +1,11 @@
+{
+    "id": "rust-on-steroids",
+    "version": "1.0.0",
+    "name": "Rust on Steroids",
+    "description": "Blazingly Fast Dev Environment for you and your team",
+    "documentationURL": "https://github.com/codeitlikemiley/ros",
+    "licenseURL": "https://github.com/codeitlikemiley/ros/blob/main/LICENCE",
+    "platforms": [
+        "Any"
+    ]
+}
