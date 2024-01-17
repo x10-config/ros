@@ -145,4 +145,9 @@ COPY --chown=$USERNAME --from=builder /cargo/* $CARGO_HOME/bin
 RUN echo '[target.x86_64-unknown-linux-gnu]\nlinker = "clang"\nrustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]' > $CARGO_HOME/config.toml
 
 # Install more cargo CLI using cargo-binstall
-RUN cargo binstall -y --continue-on-failure sqlx-cli cargo-bloat cargo-hack cargo-outdated cargo-hack cargo-chef snip-cli ws-cli
+RUN cargo binstall -y --continue-on-failure sqlx-cli cargo-bloat cargo-hack cargo-outdated cargo-hack cargo-chef snip-cli ws-cli starship zoxide
+
+# Pulumi
+RUN curl -fsSL https://get.pulumi.com | sudo -E bash - \
+    && sudo chown -R $USERNAME:$USERNAME /home/$USERNAME/.pulumi
+    # add to path ~/.pulumi/bin
