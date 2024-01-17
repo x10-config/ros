@@ -142,7 +142,7 @@ USER $USERNAME
 COPY --chown=$USERNAME --from=builder /cargo/* $CARGO_HOME/bin
 
 # Default Linker to MOLD
-RUN echo '[target.x86_64-unknown-linux-gnu]\nlinker = "clang"\nrustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]' > $CARGO_HOME/config.toml
+RUN echo '[target.x86_64-unknown-linux-gnu]\nrustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]' > $CARGO_HOME/config.toml
 
 # Install more cargo CLI using cargo-binstall
 RUN cargo binstall -y --continue-on-failure sqlx-cli cargo-bloat cargo-hack cargo-outdated cargo-hack cargo-chef snip-cli ws-cli starship zoxide
